@@ -1,56 +1,82 @@
-// _document is only rendered on the server side and not on the client side
-// Event handlers like onClick can't be added to this file
+import Document, { Head, Main, NextScript } from "next/document";
+import { config } from "../config/config.yml";
 
-import React from 'react';
-import Document, { Html, Head, Main, NextScript } from 'next/document';
+export default class MyDocument extends Document {
+    static async getInitialProps(ctx) {
+        const initialProps = await Document.getInitialProps(ctx);
+        return { ...initialProps };
+    }
 
-class MyDocument extends Document {
-  static async getInitialProps(ctx) {
-    const initialProps = await Document.getInitialProps(ctx);
-    return { ...initialProps };
-  }
+    render() {
+        return (
+            <html lang="en">
+                <Head>
+                    <meta
+                        name="viewport"
+                        content="width=device-width, initial-scale=1"
+                    />
+                    <link rel="icon" href="/static/icons/favicon.ico" />
 
-  render() {
-    return (
-      <Html>
-        <Head>
-          <link rel="icon" href="/favicon.png" />
-          <link
-            rel="stylesheet"
-            href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-            integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh"
-            crossOrigin="anonymous"
-          />
-          <link
-            href="https://fonts.googleapis.com/css?family=Poppins:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap"
-            rel="stylesheet"
-          />
-          <link
-            href="https://fonts.googleapis.com/css?family=Playfair+Display:400,700,900&display=swap"
-            rel="stylesheet"
-          />
-          <script src="https://unpkg.com/react-id-swiper@2.4.0/lib/react-id-swiper.min.js"></script>
-          <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/4.5.0/css/swiper.min.css"
-          />
-          <meta property="og:title" content="Commerce.js | Demo storefront" />
-          <meta property="og:image" content="https://cdn.chec.io/email/assets/marketing/demo-preview.png" />
-          <meta property="og:description" content="A custom, open source demo storefront built with Next.js and Commerce.js. Take a look!" />
-          <meta property="og:url" content="https://commercejs-demo-store.netlify.app" />
-          <meta property="twitter:title" content="Commerce.js | Demo storefront" />
-          <meta name="twitter:creator" content="@commercejs" />
-          <meta property="twitter:image" content="https://cdn.chec.io/email/assets/marketing/demo-preview.png" />
-          <meta property="twitter:description" content="A custom, open source demo storefront built with Next.js and Commerce.js. Take a look!" />
-          <meta name="twitter:card" content="summary_large_image" />
-        </Head>
-        <body>
-          <Main />
-          <NextScript />
-        </body>
-      </Html>
-    );
-  }
+                    <link rel="manifest" href="/static/manifest.json" />
+                    <meta
+                        name="theme-color"
+                        content={config.css.primaryColor}
+                    />
+
+                    <link
+                        rel="icon"
+                        type="image/png"
+                        sizes="32x32"
+                        href="/static/icons/icon_32.png"
+                    />
+                    <link
+                        rel="icon"
+                        type="image/png"
+                        sizes="48x48"
+                        href="/static/icons/icon_48.png"
+                    />
+                    <link
+                        rel="icon"
+                        type="image/png"
+                        sizes="128x128"
+                        href="/static/icons/icon_128.png"
+                    />
+                    <link
+                        rel="icon"
+                        type="image/png"
+                        sizes="256x256"
+                        href="/static/icons/icon_256.png"
+                    />
+
+                    <meta
+                        name="apple-mobile-web-app-title"
+                        content={config.siteName}
+                    />
+                    <link
+                        rel="apple-touch-icon"
+                        sizes="152x152"
+                        href="/static/icons/icon_180.png"
+                    />
+
+                    <meta
+                        name="msapplication-TileColor"
+                        content={config.css.primaryColor}
+                    />
+                    <meta
+                        name="msapplication-TileImage"
+                        content="/static/icons/icon_150.png"
+                    />
+                    {/* 
+                    <script>
+                         Add a Google Analytics script here.
+                    </script>
+                    */}
+                </Head>
+                <body>
+                    <Main />
+                    <NextScript />
+                </body>
+            </html>
+        );
+    }
 }
-
-export default MyDocument;
