@@ -1,78 +1,49 @@
 {
-  "name": "dashboard",
-  "version": "1.0.0",
-  "description": "Your Team Dashboard",
-  "main": "pages/index.js",
-  "private": true,
+  "name": "commercejs-nextjs-demo-store",
+  "license": "BSD-3-Clause",
+  "version": "0.1.0",
   "scripts": {
-    "dev": "next",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "standard --verbose | snazzy && stylelint '**/*.js'",
-    "test": "npm run lint"
+    "deploy": "next build && next export",
+    "lint": "eslint components lib pages store utils",
+    "lint:fix": "eslint --fix components lib pages store utils",
+    "seed": "chec-seed seeds"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/danielbayerlein/dashboard.git"
-  },
-  "keywords": [
-    "tv",
-    "dashboard"
-  ],
-  "author": "Daniel Bayerlein",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/danielbayerlein/dashboard/issues"
-  },
-  "homepage": "https://github.com/danielbayerlein/dashboard#readme",
   "dependencies": {
-    "babel-plugin-styled-components": "^1.11.1",
-    "dotenv-webpack": "^2.0.0",
-    "isomorphic-unfetch": "^3.0.0",
-    "js-base64": "^3.5.2",
-    "next": "^9.2.2",
-    "polished": "^3.6.6",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "styled-components": "^4.4.1",
-    "tinytime": "^0.2.6",
-    "yup": "^0.29.3"
+    "@chec/commerce.js": "^2.0.1",
+    "@zeit/next-sass": "^1.0.1",
+    "body-scroll-lock": "^2.6.4",
+    "dotenv": "^8.2.0",
+    "netlify-plugin-onboarding": "^1.0.0",
+    "next": "9.3.3",
+    "next-redux-wrapper": "^6.0.0",
+    "node-sass": "^4.13.0",
+    "prop-types": "^15.7.2",
+    "react": "16.12.0",
+    "react-collapse": "^5.0.1",
+    "react-dom": "16.12.0",
+    "react-id-swiper": "^2.4.0",
+    "react-lottie": "^1.2.3",
+    "react-redux": "^7.2.0",
+    "react-scroll": "^1.7.16",
+    "react-transition-group": "^4.3.0",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
+    "swiper": "^5.2.1"
   },
   "devDependencies": {
-    "babel-eslint": "^10.1.0",
-    "snazzy": "^8.0.0",
-    "standard": "^14.3.4",
-    "stylelint": "^13.7.1",
-    "stylelint-config-standard": "^19.0.0",
-    "stylelint-config-styled-components": "^0.1.1",
-    "stylelint-processor-styled-components": "^1.10.0"
-  },
-  "standard": {
-    "parser": "babel-eslint"
-  },
-  "babel": {
-    "presets": [
-      "next/babel"
-    ],
-    "plugins": [
-      [
-        "styled-components",
-        {
-          "ssr": true,
-          "displayName": true,
-          "preprocess": false
-        }
-      ]
-    ]
-  },
-  "stylelint": {
-    "processors": [
-      "stylelint-processor-styled-components"
-    ],
-    "extends": [
-      "stylelint-config-standard",
-      "stylelint-config-styled-components"
-    ],
-    "syntax": "scss"
+    "@chec/seeder": "^1.1.0",
+    "@typescript-eslint/eslint-plugin": "2.x",
+    "@typescript-eslint/parser": "2.x",
+    "babel-eslint": "10.x",
+    "eslint": "6.x",
+    "eslint-config-react-app": "^5.2.1",
+    "eslint-plugin-flowtype": "4.x",
+    "eslint-plugin-import": "2.x",
+    "eslint-plugin-jsx-a11y": "6.x",
+    "eslint-plugin-react": "7.x",
+    "eslint-plugin-react-hooks": "2.x"
   }
 }

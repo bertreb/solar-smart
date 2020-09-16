@@ -1,484 +1,128 @@
-<p align="center">
-  <img src="https://cloud.githubusercontent.com/assets/457834/25781812/a981cf5a-333e-11e7-938e-378de1589b20.png" width="250" alt="Dashboard">
-</p>
+# Demo Store with Commerce.js and Next.js 🛍️💳
 
-<h1 align="center">
-  Dashboard
-</h1>
+[![Netlify Status](https://api.netlify.com/api/v1/badges/157bb2e2-611e-4bbd-9a59-c876f8c3c58a/deploy-status)](https://app.netlify.com/sites/commercejs-demo-store/deploys)
 
-<p align="center">
-  Create your own team dashboard with custom widgets.
-</p>
+A high-fidelity fully-fledged eCommerce demo store built using the Commerce.js SDK and Next.js with live deployment to Netlify.
 
-<p align="center">
-  <a href="https://github.com/danielbayerlein/vallox-api/actions">
-    <img alt="Actions Status" src="https://github.com/danielbayerlein/dashboard/workflows/CI/badge.svg">
-  </a>
-  <a href="https://standardjs.com">
-    <img alt="JavaScript Style Guide" src="https://img.shields.io/badge/code_style-standard-brightgreen.svg">
-  </a>
-  <a href="https://dependabot.com">
-    <img alt="Dependabot Status" src="https://api.dependabot.com/badges/status?host=github&repo=danielbayerlein/dashboard">
-  </a>
-  <a href="https://deploy.now.sh/?repo=https://github.com/danielbayerlein/dashboard">
-    <img alt="Deploy to now" src="https://deploy.now.sh/static/button.svg" height="20">
-  </a>
-</p>
+[![Chec see live demo button](https://cdn.chec.io/email/assets/marketing/chec-demo-btn.svg)](https://commercejs-demo-store.netlify.app)
 
-## Table of Contents
+**Note**
+- This app is built using Commerce.js v2 SDK
 
-* [Installation](#installation)
-* [Server](#server)
-  * [Development](#development)
-  * [Production](#production)
-  * [Docker](#docker)
-* [Create a Dashboard](#create-a-dashboard)
-* [Available Widgets](#available-widgets)
-  * [DateTime](#datetime)
-  * [Jenkins Job Status](#jenkins-job-status)
-  * [Jenkins Job Health](#jenkins-job-health)
-  * [Jenkins Build Duration](#jenkins-build-duration)
-  * [JIRA Issue Count](#jira-issue-count)
-  * [JIRA Sprint Days Remaining](#jira-sprint-days-remaining)
-  * [Bitbucket PullRequest Count](#bitbucket-pullrequest-count)
-  * [PageSpeed Insights Score](#pagespeed-insights-score)
-  * [PageSpeed Insights Stats](#pagespeed-insights-stats)
-  * [SonarQube](#sonarqube)
-  * [Elasticsearch Hit Count](#elasticsearch-hit-count)
-  * [GitHub Issue Count](#github-issue-count)
-  * [Title](#title)
-* [Available Themes](#available-themes)
-  * [light](#light)
-  * [dark](#dark)
-* [Authentication](#authentication)
-* [Cross-Origin Resource Sharing (CORS)](#cross-origin-resource-sharing-cors)
-  * [Proxy](#proxy)
-  * [Resources](#resources)
-* [License](#license)
+## Overview
 
-## Installation
+This README will guide you in getting up and running with a fully-fledged eCommerce template. We have configured this template for you to one-click deploy directly to Netlify. Alternatively, you can manually deploy to your choice of hosting platform.
 
-1. [Download](../../archive/master.zip) or clone the repository.
-2. Install the dependencies with `npm install`.
+For a full detailed tutorial on building this JAMstack eCommerce application, please head on over [here](https://www.netlify.com/blog/2020/07/09/create-a-fully-fledged-jamstack-commerce-store-with-commerce.js-and-netlify/).
 
-## Server
 
-### Development
+## Prerequisites
 
-Run `npm run dev` and go to http://localhost:3000.
+- IDE or code editor of your choice
+- Node (v8.2.0 or higher)
+- NPM or Yarn
+- Chec CLI `yarn global add @chec/cli`
 
-### Production
+## Setup
 
-Build your dashboard for production with `npm run build` and then start the
-server with `npm start`.
+### Create a Chec account. 
 
-### Docker
-
-1. Build your dashboard for production with `npm run build`
-2. Build the image with `docker build -t dashboard .`
-3. Start the container with `docker run -d -p 8080:3000 dashboard`
-4. Go to http://localhost:8080
-
-## Create a Dashboard
-
-You can create multiple dashboards.
-For example populate `pages/team-unicorn.js` inside your project:
-
-```javascript
-import Dashboard from '../components/dashboard'
-import DateTime from '../components/widgets/datetime'
-import lightTheme from '../styles/light-theme'
-
-export default () => (
-  <Dashboard theme={lightTheme} name='Unicorn Dashboard'>
-    <DateTime />
-  </Dashboard>
-)
-```
-
-This dashboard is available at http://localhost:3000/team-unicorn.
-
-For an example, see [pages/index.js](./pages/index.js).
-
-## Available Widgets
-
-### [DateTime](./components/widgets/datetime/index.js)
-
-#### Example
-
-```javascript
-import DateTime from '../components/widgets/datetime'
-
-<DateTime interval={10000} />
-```
-
-#### props
-
-* `interval`: Refresh interval in milliseconds (Default: `10000`)
-
-### [Jenkins Job Status](./components/widgets/jenkins/job-status.js)
-
-#### Example
-
-```javascript
-import JenkinsJobStatus from '../components/widgets/jenkins/job-status'
-
-<JenkinsJobStatus
-  url='https://builds.apache.org'
-  jobs={[
-    { label: 'JMeter', path: 'JMeter-trunk' },
-    { label: 'Log4j Kotlin', path: 'Log4jKotlin', branch: 'master' }
-  ]}
-/>
-```
-
-For Jenkins multibranch projects add `branch` to the object.
-
-#### props
-
-* `title`: Widget title (Default: `Job Status`)
-* `interval`: Refresh interval in milliseconds (Default: `300000`)
-* `url`: Jenkins URL
-* `jobs`: List of all jobs
-* `authKey`: Credential key, defined in [auth.js](./auth.js)
-
-### [Jenkins Job Health](./components/widgets/jenkins/job-health.js)
-
-#### Example
-
-```javascript
-import JenkinsJobHealth from '../components/widgets/jenkins/job-health'
-
-<JenkinsJobHealth
-  url='https://builds.apache.org'
-  jobs={[
-    { label: 'JMeter', path: 'JMeter-trunk' },
-    { label: 'Log4j Kotlin', path: 'Log4jKotlin', branch: 'master' }
-  ]}
-/>
-```
-
-For Jenkins multibranch projects add `branch` to the object.
-
-#### props
-
-* `title`: Widget title (Default: `Job Health`)
-* `interval`: Refresh interval in milliseconds (Default: `300000`)
-* `url`: Jenkins URL
-* `jobs`: List of all jobs
-* `authKey`: Credential key, defined in [auth.js](./auth.js)
-
-
-### [Jenkins Build Duration](./components/widgets/jenkins/build-duration.js)
-
-#### Example
-
-```javascript
-import JenkinsBuildDuration from '../components/widgets/jenkins/build-duration'
-
-<JenkinsBuildDuration
-  url='https://builds.apache.org'
-  jobs={[
-    { label: 'JMeter', path: 'JMeter-trunk' },
-    { label: 'Log4j Kotlin', path: 'Log4jKotlin', branch: 'master' }
-  ]}
-/>
-```
-
-For Jenkins multibranch projects add `branch` to the object.
-
-#### props
-
-* `title`: Widget title (Default: `Build Duration`)
-* `interval`: Refresh interval in milliseconds (Default: `300000`)
-* `url`: Jenkins URL
-* `jobs`: List of all jobs
-* `authKey`: Credential key, defined in [auth.js](./auth.js)
-
-### [JIRA Issue Count](./components/widgets/jira/issue-count.js)
-
-#### Example
-
-```javascript
-import JiraIssueCount from '../components/widgets/jira/issue-count'
-
-<JiraIssueCount
-  title='JIRA Open Bugs'
-  url='https://jira.atlassian.com'
-  query='type=Bug AND project="Bitbucket Server" AND resolution=Unresolved ORDER BY priority DESC,created DESC'
-/>
-```
-
-For Jenkins multibranch projects add `branch` to the object.
-
-#### props
-
-* `title`: Widget title (Default: `JIRA Issue Count`)
-* `interval`: Refresh interval in milliseconds (Default: `300000`)
-* `url`: JIRA Server URL
-* `query`: JIRA search query (`jql`)
-* `authKey`: Credential key, defined in [auth.js](./auth.js)
-
-### [JIRA Sprint Days Remaining](./components/widgets/jira/sprint-days-remaining.js)
-
-#### Example
-
-```javascript
-import JiraSprintDaysRemaining from '../components/widgets/jira/sprint-days-remaining'
-
-<JiraSprintDaysRemaining
-  title='Sprint Days'
-  url='https://jira.atlassian.com'
-  boardId={42}
-/>
-```
-
-#### props
-
-* `title`: Widget title (Default: `JIRA Sprint Days Remaining`)
-* `interval`: Refresh interval in milliseconds (Default: `3600000`)
-* `url`: JIRA Server URL
-* `boardId`: JIRA board id
-* `authKey`: Credential key, defined in [auth.js](./auth.js)
-
-### [Bitbucket PullRequest Count](./components/widgets/bitbucket/pull-request-count.js)
-
-#### Example
-
-```javascript
-import BitbucketPullRequestCount from '../components/widgets/bitbucket/pull-request-count'
-
-<BitbucketPullRequestCount
-  title='Bitbucket Open PR'
-  url='https://bitbucket.typo3.com'
-  project='EXT'
-  repository='blog'
-  users={['stekal', 'marleg', 'denhub']}
-/>
-```
-
-#### props
-
-* `title`: Widget title (Default: `Bitbucket PR Count`)
-* `interval`: Refresh interval in milliseconds (Default: `300000`)
-* `url`: Bitbucket Server URL
-* `project`: Bitbucket project key
-* `repository`: Bitbucket repository slug
-* `users`: Bitbucket user slugs as an array
-* `authKey`: Credential key, defined in [auth.js](./auth.js)
-
-### [PageSpeed Insights Score](./components/widgets/pagespeed-insights/score.js)
-
-#### Example
-
-```javascript
-import PageSpeedInsightsScore from '../components/widgets/pagespeed-insights/score'
-
-<PageSpeedInsightsScore url='https://github.com' />
-```
-
-#### props
-
-* `title`: Widget title (Default: `PageSpeed Score`)
-* `interval`: Refresh interval in milliseconds (Default: `43200000`)
-* `url`: URL to fetch and analyze
-* `strategy`: Analysis strategy (Default: `desktop`)
-  * Acceptable values: `desktop` | `mobile`
-* `filterThirdPartyResources`: Indicates if third party resources should be filtered out (Default: `false`)
-
-### [PageSpeed Insights Stats](./components/widgets/pagespeed-insights/stats.js)
-
-#### Example
-
-```javascript
-import PageSpeedInsightsStats from '../components/widgets/pagespeed-insights/stats'
-
-<PageSpeedInsightsStats url='https://github.com' />
-```
-
-#### props
-
-* `title`: Widget title (Default: `PageSpeed Stats`)
-* `interval`: Refresh interval in milliseconds (Default: `43200000`)
-* `url`: URL to fetch and analyze
-* `strategy`: Analysis strategy (Default: `desktop`)
-  * Acceptable values: `desktop` | `mobile`
-* `filterThirdPartyResources`: Indicates if third party resources should be filtered out (Default: `false`)
-
-### [SonarQube](./components/widgets/sonarqube/index.js)
-
-#### Example
-
-```javascript
-import SonarQube from '../components/widgets/sonarqube'
-
-<SonarQube
-  url='https://sonarcloud.io'
-  componentKey='com.icegreen:greenmail-parent'
-/>
-```
-
-#### props
-
-* `title`: Widget title (Default: `SonarQube`)
-* `interval`: Refresh interval in milliseconds (Default: `300000`)
-* `url`: SonarQube URL
-* `componentKey`: SonarQube project key
-* `authKey`: Credential key, defined in [auth.js](./auth.js)
-
-### [Elasticsearch Hit Count](./components/widgets/elasticsearch/hit-count.js)
-
-#### Example
-
-```javascript
-import ElasticsearchHitCount from '../components/widgets/elasticsearch/hit-count'
-
-<ElasticsearchHitCount
-  title='Log Hits'
-  url='http://ec2-34-210-144-223.us-west-2.compute.amazonaws.com:9200'
-  index='blog'
-  query='user:dilbert'
-/>
-```
-
-#### props
-
-* `title`: Widget title (Default: `Elasticsearch Hit Count`)
-* `interval`: Refresh interval in milliseconds (Default: `300000`)
-* `url`: Elasticsearch URL
-* `index`: Elasticsearch index to search in
-* `query`: Elasticsearch query
-* `authKey`: Credential key, defined in [auth.js](./auth.js)
-
-### [GitHub Issue Count](./components/widgets/github/issue-count.js)
-
-#### Example
-
-```javascript
-import GitHubIssueCount from '../components/widgets/github/issue-count'
-
-<GitHubIssueCount
-  owner='danielbayerlein'
-  repository='dashboard'
-/>
-```
-
-#### props
-
-* `title`: Widget title (Default: `GitHub Issue Count`)
-* `interval`: Refresh interval in milliseconds (Default: `300000`)
-* `owner`: Owner of the repository
-* `repository`: Name of the repository
-* `authKey`: Credential key, defined in [auth.js](./auth.js)
-
-### [Title](./components/widgets/title/index.js)
-
-#### Example
-
-```javascript
-import Title from '../components/widgets/title'
-
-<Title>API Status</Title>
-```
-
-## Available Themes
-
-### [light](./styles/light-theme.js)
-
-#### Example
-
-```javascript
-import lightTheme from '../styles/light-theme'
-
-<Dashboard theme={lightTheme}>
-  ...
-</Dashboard>
-```
-
-#### Preview
-
-![dashboard-light](https://cloud.githubusercontent.com/assets/457834/26214930/8c065dce-3bfe-11e7-9da0-2d6ebba2dfb8.png)
-
-### [dark](./styles/dark-theme.js)
-
-#### Example
-
-```javascript
-import darkTheme from '../styles/dark-theme'
-
-<Dashboard theme={darkTheme}>
-  ...
-</Dashboard>
-```
-
-#### Preview
-
-![dashboard-dark](https://cloud.githubusercontent.com/assets/457834/26214954/a668dc50-3bfe-11e7-8c19-7a0c7dd260e7.png)
-
-## Authentication
-
-Any widget can authenticate itself, should your server expect this. We use
-[basic authentication](https://developer.mozilla.org/en-US/docs/Web/HTTP/Authentication).
-
-1. Define your credential key in [auth.js](./auth.js). For example:
-   ```javascript
-   jira: {
-     username: process.env.JIRA_USER,
-     password: process.env.JIRA_PASS
-   }
-   ```
-2. Give the defined credential key `jira` via prop `authKey` to the widget.
-   For example:
-   ```javascript
-   <JiraIssueCount
-     authKey='jira'
-     url='https://jira.atlassian.com'
-     query='type=Bug AND project="Bitbucket Server" AND resolution=Unresolved ORDER BY priority DESC,created DESC'
-   />
-   ```
-3. Create a `.env` file or rename `.env.example` to `.env` in the root directory of your project. Add
-   environment-specific variables on new lines in the form of `NAME=VALUE`.
-   For example:
-   ```dosini
-   JIRA_USER=root
-   JIRA_PASS=s1mpl3
-   ```
-
-## Cross-Origin Resource Sharing (CORS)
-
-[Cross-Origin Resource Sharing](https://www.w3.org/TR/cors/) (CORS) is a W3C
-spec that allows cross-domain communication from the browser. By building on
-top of the XMLHttpRequest object, CORS allows developers to work with the same
-idioms as same-domain requests.
-
-### Proxy
-
-You can use a proxy (e.g. [hapi-rest-proxy](https://github.com/chrishelgert/hapi-rest-proxy))
-to enable CORS request for any website.
-
-#### Server
+Now that you’ve installed Chec CLI globally, you will be able to access the list of `chec [COMMANDS]`, one of which is registering for a Chec account. Let’s go ahead and get that set up!
 
 ```bash
-docker pull chrishelgert/hapi-rest-proxy
-docker run -d -p 3001:8080 chrishelgert/hapi-rest-proxy
+# Open the Chec registration page in your browser
+chec register
 ```
 
-#### Dashboard
+Follow the rest of the walk-through to set up your merchant details. Alternatively, you can go [here](https://authorize.chec.io/signup) to register for a Chec account. 
 
-```javascript
-<SonarQube
-  url='http://127.0.0.1:3001/?url=https://sonarcloud.io'
-  componentKey='com.icegreen:greenmail-parent'
-/>
+
+## One-click Deploy with Netlify (recommended)
+
+The one-click deploy allows you to connect Netlify to your GitHub account to clone the `commercejs-nextjs-demo-store` repository and deploy it automatically. Be sure to go to [Netlify](https://app.netlify.com/signup) and sign up for an account before clicking the deploy button.
+
+ [![Deploy to Netlify button](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/chec/commercejs-nextjs-demo-store)
+
+By clicking the above button, you will be navigated to the Netlify’s direct deploy page with the project’s repository passed as parameters in the url. Click the **Connect to GitHub** button, name your repository and enter in this [public key](https://github.com/chec/commercejs-nextjs-demo-store/blob/master/.env.example#L2) in the **Chec Public Key** input. Please note that for the purpose of getting you up and running with a live deploy preview of the demo store, we provided you with the Public Key from our demo merchant account. Now, save & deploy your site.
+
+*Please note the initial build will fail if you enter in your public key instead of the provided demo merchant [key](https://github.com/chec/commercejs-nextjs-demo-store/blob/master/.env.example#L2). The one-click deploy is meant for presentation purposes to spin up a quick deploy. Using your merchant account would mean you would need to have the appropriate data such as multiple assets and categories associated with your products. If you would like to use your merchant account, please follow the manual setup steps below.*
+
+
+## Manual setup and Netlify deployment
+
+Manual setup involves cloning the repo into your local environment, seeding the provided sample data into your Chec account and deploying to Netlify.
+
+**STEP 1.** Clone the repo and install dependencies
+
+```bash
+# Clone the repository locally, optionally rename the repo, change into the directory
+git clone https://github.com/chec/commercejs-nextjs-demo-store.git chec-store 
+# Change into the directory and install dependencies
+cd chec-store && yarn
 ```
 
-### Resources
+**STEP 2.** Set up your environment variables
 
-* https://www.w3.org/TR/cors/
-* https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
-* https://enable-cors.org
-* https://en.wikipedia.org/wiki/Cross-origin_resource_sharing
+Replace the sample `.env.example` dotenv file at the root of the project to store your Chec `public_key` as well as your `secret_key`.
 
-## License
+```bash
+# Copy from source file to destination file .env
+cp .env.example .env
+```
 
-Copyright (c) 2017-present Daniel Bayerlein. See [LICENSE](./LICENSE.md) for details.
+You can access your API key under in your Chec dashboard setup, then navigate to the Develop tab to copy your Public Key and Secret Key. Replace the provided `CHEC_PUBLIC_KEY` with your own and fill in your `CHEC_SECRET_KEY` in the `.env` file. The secret key is necessary for the seed script to have the proper permission to seed the sample data in `/seeds` into your Chec account. Remove the secret key once the data is seeded.
+
+```js
+// .env
+
+# Fill in your public key and secret key
+CHEC_PUBLIC_KEY=
+CHEC_API_URL=https://api.chec.io
+# Secret key is used with chec/seeder to access your Chec account to seed it with sample data
+CHEC_SECRET_KEY=
+NODE_ENV=
+```
+
+This file is meant to not be committed to source control and also will be hidden in file browsers.
+
+**STEP 3.** Seed the data necessary to power your Chec store and start your development environment
+```bash
+# Seed data in /seeds into your Chec account
+yarn seed
+# Run your development environment on http://localhost:3000
+yarn dev
+```
+
+Now head on over to http://localhost:3000 after starting your development, your site should now be populated with the sample data!Your site should now be populated with the sample data!
+
+If you are replacing the sample products, be sure to add new categories in the dashboard, associate your products with them and lastly replace the `slug` and `link` values [here](https://github.com/chec/commercejs-nextjs-demo-store/blob/master/lib/collections.js).
+
+**STEP 5.** Make any necessary changes you need and push the code to a repository on Github or your choice of platform.
+
+**STEP 6.** Deploy your site
+
+Be sure to sign up for a Netlify account and log in to it. Click the **New site from Git** button and give access to select your repo. Your build settings are automatically filled out for your from the `netlify.toml` in the template. To enter your environment variables, click **Show advanced** then **New variable** and fill in the key input as CHEC_PUBLIC_KEY and the value input with your Public Key. You can access your API key in your Chec dashboard under Setup, then navigate to the Developer tab to copy your Public Key
+
+Now go ahead and click the "deploy site" to see your live site!
+
+### Caveats with data customization
+
+Because this project is a fully fledged storefront showcasing a custom design and user flow, there are certain caveats you will run into if you customize your data in the Chec Dashboard. One gotcha is with the categories data in the UI: additional collections data was added [here](https://github.com/chec/commercejs-nextjs-demo-store/blob/master/lib/collections.js) and merged with the categories data in the API. If you add new or edit the seeded sample categories data, make sure to match up the slugs/permalink values in the collections data file.
+
+## 🥞 Stack
+
+- Framework - [Next.js](https://nextjs.org)
+- eCommerce - [Chec/Commerce.js](https://commercejs.com)
+- Hosting - [Netlify](https://netlify.com)
+- Styling - Bootstrap and SASS
+
+## Customization and Extendability
+
+- Add shipping zones and enable shipping options in each product
+- Customizing the styling
+    - All global styles are done using SASS and Bootstrap
+- A/B testing unique checkout designs and flow
+- Integrating other backend tools like Content Management Systems, Customer Support, Fulfillment services, and more.
+- Fetching real client reviews from reviews APIs
+- Adding search functionality
+- Leveraging [webhooks](https://commercejs.com/blog/webhooks-pizza-and-order-notifications-via-twilio) to automate post checkout actions
