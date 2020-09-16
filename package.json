@@ -16,6 +16,6 @@
   "dependencies": {
     "next": "^9.5.3",
     "react-dom": "^16.13.1",
-    "reat": "0.0.1-security"
+    "react": "^16.13.1"
   }
 }
